@@ -1,0 +1,50 @@
+<full-calendar #calendar [options]="calendarOptions"></full-calendar>
+
+<p-dialog header="Tarea" [modal]="true" [(visible)]="display" 
+            [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}">
+    ¿ Quieres añadir una tarea ?
+    <ng-template pTemplate="footer">
+        <p-button label="Si" (onClick)="dialogFecha()"></p-button>
+        <p-button label="No" (onClick)="closeDialog()"></p-button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog header="Elige Fecha" [modal]="true" [(visible)]="displayFecha" (onHide)="closedialogFecha()"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw', top: '1%'}" [resizable]="false">
+
+    <form [formGroup]="addEventsForm" (ngSubmit)="onSubmit()">
+        <div class="p-fluid grid">
+            <div class="field col-12 md:col-4">
+                <span class="p-float-label" style="margin-top: 10%;">
+                    <p-calendar formControlName="date" [showIcon]="true" inputId="fecha" appendTo="body"
+                        dateFormat="dd/mm/yy"></p-calendar>
+                    <label for="fecha" style=" margin-right: 1%;">Fecha</label>
+                </span>
+            </div>
+            <div class="field col-12 md:col-4">
+                <span class="p-float-label" style="margin-top: 10%;">
+                    <p-calendar formControlName="hour" [timeOnly]="true" appendTo="body" inputId="timeonly">
+                    </p-calendar>
+                    <label for="timeonly" style="margin-right: 1%;">Hora</label>
+                </span>
+            </div>
+    
+    
+            <div class="field col-12 md:col-12" style="margin-top: 3%;">
+                <label> Introduzca la tarea </label>
+            </div>
+            <div class="field col-12 md:col-9" style="margin-left: 0%;">
+                <textarea pInputTextarea [rows]="10" [cols]="40" placeholder="Write something here..."
+                         formControlName="description"></textarea>
+            </div>
+            <div class="field col-12 md:col-3">
+                <p-button label="Eliminar" [style]="{top: '30%'}" (onClick)="deleteEventBtn()" [disabled]="pbuttonDelete"></p-button>
+                <p-button label="Enviar" [style]="{top: '35%'}" type="submit"></p-button>
+                <p-button label="Salir" [style]="{top: '40%'}" (onClick)="closedialogFecha()"></p-button>
+            </div>
+        </div>
+        
+    </form>
+</p-dialog>
+
+
